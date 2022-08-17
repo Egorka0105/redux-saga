@@ -1,0 +1,17 @@
+.app{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 50px;
+
+  h1{
+    text-align: center;
+  }
+
+  .catItem {
+    width: 50%;
+    img{
+      width: 100%;
+    }
+  }
+}
