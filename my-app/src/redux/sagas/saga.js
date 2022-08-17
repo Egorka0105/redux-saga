@@ -1,24 +1,17 @@
 import {takeEvery, put, call} from "redux-saga/effects"
 import axios from "axios";
+import {getCatsSuccess} from "../slices/firstSagaSlice";
 
-async function getPeople() {
-    const result = await axios.get("https://swapi.dev/api/people");
-    return result.data;
+
+function* workGetCatsFetch() {
+    const cats = yield call(() => axios.get('https://api.thecatapi.com/v1/breeds'));
+    const result = cats.data.slice(0, 10);
+    yield put(getCatsSuccess(result));
+
 }
 
-export function* workerSaga() {
-    const data = yield call(getPeople);
-    console.log(data)
-    yield put({type: 'SET_PEOPLE', payload: data.results})
+function* catSaga() {
+    yield takeEvery('cats/getCatsFetch', workGetCatsFetch);
 }
 
-
-export function* watchClickSaga() {
-
-    yield takeEvery("click", workerSaga);
-}
-
-
-export default function* rootSaga() {
-    yield watchClickSaga();
-}
+export default catSaga;
