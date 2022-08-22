@@ -4,6 +4,7 @@ import {getCatsSuccess} from "../slices/firstSagaSlice";
 
 
 function* workGetCatsFetch() {
+
     const cats = yield call(() => axios.get('https://api.thecatapi.com/v1/breeds'));
     const result = cats.data.slice(0, 10);
     yield put(getCatsSuccess(result));
